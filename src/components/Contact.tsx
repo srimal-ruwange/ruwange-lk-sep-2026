@@ -69,8 +69,8 @@ export default function Contact() {
             Let&apos;s build the next one.
           </Reveal>
           <p className="lead contact-copy">
-            Have a site that needs building properly, or an app that needs a front end with some life in it? Tell me about it.
-            I&apos;m in {site.city} ({site.utc}), take a few projects at a time, and usually reply within a day.
+            Got something new to build? Tell me about it. I&apos;m in {site.city} ({site.utc}), I take on one project at a
+            time, and I usually reply within a day.
           </p>
         </div>
 

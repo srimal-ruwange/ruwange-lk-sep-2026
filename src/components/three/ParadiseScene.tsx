@@ -48,7 +48,8 @@ const FRAG = /* glsl */ `
   vec2 cover(vec2 uv, vec2 img, vec2 plane) {
     float ia = img.x / img.y, pa = plane.x / plane.y;
     vec2 s = ia > pa ? vec2(pa / ia, 1.0) : vec2(1.0, ia / pa);
-    return (uv - 0.5) * s * 0.96 + 0.5;
+    // zoom in a touch so the drawing's own pencil border stays outside the panel
+    return (uv - 0.5) * s * 0.93 + 0.5;
   }
   float front(float p, float key, float w) { return smoothstep(key - w, key + w, p); }
 
@@ -63,7 +64,7 @@ const FRAG = /* glsl */ `
     float edge = clamp((dark - blur * 0.85) * 1.7, 0.0, 1.0);
 
     // ---- the wash, inside the drawing's border ----
-    float inside = smoothstep(0.03, 0.07, uv.x) * smoothstep(0.97, 0.93, uv.x) * smoothstep(0.03, 0.07, uv.y) * smoothstep(0.96, 0.92, uv.y);
+    float inside = 1.0;
     float aspect = uImgRes.x / uImgRes.y;
 
     // sun: sits above the horizon at rest, sinks into the sea as the section scrolls by

@@ -13,7 +13,7 @@ const facts: { k: string; v: string | null; href?: string }[] = [
   { k: "Local time", v: null },
   { k: "Working", v: "Remote · async-first · worldwide" },
   { k: "Focus", v: "WebGL · GSAP · Next.js · Shaders" },
-  { k: "Status", v: "Part-time freelance · taking projects" },
+  { k: "Freelance", v: "A couple of projects a year, chosen carefully" },
   { k: "Elsewhere", v: "LinkedIn", href: site.social.linkedin },
 ];
 
@@ -60,8 +60,8 @@ export default function About() {
       <SectionMark />
 
       <Reveal as="p" className="h-2 about-lead" mode="scrub">
-        I&apos;m Srimal. After a long stretch building web apps inside a large software company, I now take on a few
-        freelance projects a year — sites with real motion, built carefully, from Colombo.
+        I&apos;m Srimal. By day I build web applications at a large software company. Evenings and weekends, I build
+        websites for other people, because I like making something new.
       </Reveal>
 
       <div className="about-grid">
@@ -83,14 +83,14 @@ export default function About() {
         <div className="about-body">
         <div className="about-copy">
           <p>
-            For most of my career I worked on long-running web applications: products that had to keep working, keep evolving
-            and keep their users for years. That is the discipline I bring to a portfolio site or a brand launch. The
-            expressive part is only worth doing if it is still solid in year three.
+            I like my day job. It is long-running product work: the same application, year after year, kept healthy and
+            growing for people who depend on it. That teaches you a lot about what holds up. It also means most weeks look
+            like the week before.
           </p>
           <p>
-            I&apos;ve recently gone part-time freelance, so I take a small number of projects at a time and stay close to each
-            one. If you want a site that moves, loads fast and doesn&apos;t fall apart when the next feature lands, we should
-            talk.
+            Freelance is where I go to do something different. A new brand, a blank page, a chance to try an idea I have been
+            sitting on. I take a couple of projects a year, on my own time, and I pick the ones I actually want to build.
+            The result is work I care about, done by someone who is not in a hurry.
           </p>
           <p>
             I build with AI as a second pair of hands. It writes a lot of the first draft; I decide what gets built, what gets

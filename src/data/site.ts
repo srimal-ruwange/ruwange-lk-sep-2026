@@ -8,7 +8,7 @@ export const site = {
   utc: "UTC+5:30",
   coords: { lat: 6.9271, lon: 79.8612, label: "6.9271° N, 79.8612° E" },
   description:
-    "Motion-led websites, built with the care of someone who spent years keeping large web apps alive. Working remotely from Colombo, Sri Lanka.",
+    "Websites with real motion, built carefully in Colombo, Sri Lanka. Day job: large web applications. Evenings: the fun stuff.",
   social: {
     linkedin: "https://www.linkedin.com/in/srimalruwange/",
   },
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     url: "https://futurestatedigital.com",
     tags: ["Branding", "WebGL", "GSAP", "Next.js"],
     description:
-      "A founder-led product & platform consultancy. Branding and a motion-led site — WebGL particle trail, GSAP scroll storytelling — framing how they build, modernize, and scale digital products.",
+      "A consultancy run by its founders, so the site had to sound like them: direct, technical, a little ambitious. I did the brand as well as the build. The particle trail in the hero is the thing people ask about; the scroll story underneath it is the thing that does the selling.",
     image: "/images/work-future-state.webp",
   },
   {
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     url: "https://dreamstartlabs.com",
     tags: ["WebGL", "GSAP", "WordPress"],
     description:
-      "A social-impact venture digitizing informal savings groups worldwide. A warm, motion-led WordPress site — WebGL globe, GSAP scroll storytelling, animated impact stats — showing how communities unlock financial freedom at scale.",
+      "They digitise informal savings groups in places most software ignores. The brief was warmth first, technology second. WordPress so their team can publish from anywhere, a small WebGL globe for the countries they work in, and impact numbers that count up as you reach them.",
     image: "/images/work-dreamstart.webp",
   },
   {
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     url: "https://asaya.lk",
     tags: ["GSAP", "WordPress"],
     description:
-      "A live-work-play boutique retreat by the beach in Mirissa, Sri Lanka. A serene, scroll-led WordPress site — GSAP transitions and full-bleed imagery — inviting guests to stay, work, and dine by the sea.",
+      "A place to stay, work and eat by the sea in Mirissa. Big photographs, slow transitions, not much text. Built on WordPress so the owners can swap the season's images themselves. A short description, because the site is.",
     image: "/images/work-asaya.jpg",
   },
   {
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     url: "https://sudathpereraassociates.com/",
     tags: ["WordPress", "Design", "Content structure"],
     description:
-      "A full-service Sri Lankan law firm. A confident WordPress build — large editorial type over full-bleed photography, clear practice areas and team pages, and a content structure the firm can maintain themselves.",
+      "A law firm's website usually looks like a law firm's website. This one opens on a night-market photograph and a headline about zoning. Large serif type, clear practice areas, team pages that are easy to keep current, and WordPress underneath because they will be editing it for years.",
     image: "/images/work-spa.jpg",
   },
   {
@@ -72,7 +72,7 @@ export const projects: Project[] = [
     url: "https://ruwange.lk",
     tags: ["Next.js", "GSAP", "Three.js", "Shaders"],
     description:
-      "The site you're on. Paper, ink and a lot of WebGL — a velocity-driven project reel, a pencil sketch that draws itself, an ink-wash plate viewer and a live globe. Built to prove the work, not just describe it.",
+      "The site you are reading. Next.js, GSAP and a lot of Three.js: the bent reel at the top, the sketch that draws itself, the ink dissolve between these projects. Made with AI as a second pair of hands, in days, which I say out loud in the About section.",
     image: "/images/work-portfolio-2026.jpg",
   },
 ];
