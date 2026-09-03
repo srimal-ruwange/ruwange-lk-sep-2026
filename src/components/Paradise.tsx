@@ -3,13 +3,9 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { scrollToHash } from "@/lib/lenis";
 import { site } from "@/data/site";
 import { formatTime } from "@/lib/time";
 import { solarTimes, localNoon, formatCountdown } from "@/lib/sun";
-import SectionMark from "./motion/SectionMark";
-import Reveal from "./motion/Reveal";
-import Rule from "./motion/Rule";
 import type { ParadiseState } from "./three/ParadiseScene";
 
 const ParadiseScene = dynamic(() => import("./three/ParadiseScene"), { ssr: false });
@@ -43,23 +39,15 @@ function SunFacts() {
     }
   }
 
-  const cells = [
-    { k: "Local time", v: now ? formatTime(now, site.timeZone, false) : "--:--" },
-    { k: "Sunrise", v: sunrise },
-    { k: "Sunset", v: sunset },
-    { k: next.label, v: next.value },
-  ];
-
   return (
-    <dl className="para-facts mono">
-      {cells.map((c, i) => (
-        <div className="para-fact" key={c.k}>
-          <Rule delay={i * 0.08} />
-          <dt>{c.k}</dt>
-          <dd suppressHydrationWarning>{c.v}</dd>
-        </div>
-      ))}
-    </dl>
+    <p className="para-sun mono">
+      <span>{now ? formatTime(now, site.timeZone, false) : "--:--"} in {site.city}</span>
+      <span>Sunrise {sunrise}</span>
+      <span>Sunset {sunset}</span>
+      <span>
+        {next.label} {next.value}
+      </span>
+    </p>
   );
 }
 
@@ -84,47 +72,28 @@ export default function Paradise() {
         ease: "none",
         scrollTrigger: { trigger: art, start: "top bottom", end: "bottom top", scrub: true },
       });
-      gsap.from(".para-art", { y: 40, opacity: 0, duration: 1.2, scrollTrigger: { trigger: art, start: "top 88%", once: true } });
     },
     { scope: root },
   );
 
   return (
-    <section ref={root} className="section para container" id="paradise" aria-label="Based in Sri Lanka">
-      <SectionMark />
+    <section ref={root} className="para" id="paradise" aria-label="Based in Sri Lanka">
+      <div className="para-art" role="img" aria-label="Pencil drawing of a desk on a veranda overlooking the sea in Sri Lanka, with the sun setting over the water">
+        <ParadiseScene src="/images/sketch-veranda.jpg" stateRef={stateRef} />
+      </div>
 
-      <div className="para-head">
-        <Reveal as="h2" className="h-2 para-title">
-          Palm trees out front. Fibre out back.
-        </Reveal>
+      <div className="container para-below">
+        <p className="para-line serif">
+          Palm trees out front. <em>Fibre out back.</em>
+        </p>
         <div className="para-copy">
           <p className="lead">
             Colombo, Sri Lanka. Born here, still here. I work from home for teams anywhere: the light is gold by five,
             the time zone touches everyone&apos;s working day, and every site I make starts at this desk.
           </p>
-          <a
-            className="link mono"
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToHash("#contact");
-            }}
-          >
-            Start a project <span className="arrow">↗</span>
-          </a>
+          <SunFacts />
         </div>
       </div>
-
-      <div className="para-art" role="img" aria-label="Pencil drawing of a desk on a veranda overlooking the sea in Sri Lanka, with the sun setting over the water">
-        <ParadiseScene src="/images/sketch-veranda.jpg" stateRef={stateRef} />
-        <span className="para-corner tl" />
-        <span className="para-corner tr" />
-        <span className="para-corner bl" />
-        <span className="para-corner br" />
-        <span className="para-caption mono">The office · {site.coords.label}</span>
-      </div>
-
-      <SunFacts />
     </section>
   );
 }
