@@ -5,6 +5,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import Header from "@/components/Header";
 import Frame from "@/components/Frame";
+import Analytics from "@/components/Analytics";
+import CookieBanner from "@/components/CookieBanner";
 import { site } from "@/data/site";
 
 const serif = Instrument_Serif({
@@ -39,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <Frame />
           {children}
+          <CookieBanner />
+          <Analytics />
           <div className="grain" aria-hidden="true" />
         </SmoothScroll>
       </body>

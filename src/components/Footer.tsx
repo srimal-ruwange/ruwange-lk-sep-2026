@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { scrollToHash } from "@/lib/lenis";
+import { setConsent } from "@/lib/consent";
 import { site } from "@/data/site";
 import Rule from "./motion/Rule";
 
@@ -24,6 +25,9 @@ export default function Footer() {
       <div className="footer-row mono">
         <span>© {new Date().getFullYear()} {site.name}</span>
         <span>{site.city} · Worldwide</span>
+        <button type="button" className="footer-cookies" onClick={() => setConsent(null)}>
+          Cookies
+        </button>
         <a
           href="#top"
           onClick={(e) => {
