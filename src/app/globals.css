@@ -388,35 +388,26 @@ ul, ol { list-style: none; }
   .work-caption { bottom: -22px; }
 }
 
-/* ---------- capabilities ---------- */
-.caps-list { display: grid; }
-.cap { position: relative; }
-.cap .rule { position: absolute; top: 0; left: 0; }
-.cap-head { width: 100%; display: grid; grid-template-columns: 60px 1fr auto 28px; gap: 20px; align-items: center; padding: 28px 0; text-align: left; }
-.cap-head .cap-n { color: var(--mute); }
-.cap-head h3 { font-size: clamp(26px, 3.2vw, 52px); }
-.cap-plus { position: relative; width: 14px; height: 14px; justify-self: end; }
-.cap-plus::before, .cap-plus::after { content: ""; position: absolute; background: var(--ink); left: 50%; top: 50%; transition: transform 0.5s var(--ease-out); }
-.cap-plus::before { width: 14px; height: 1px; transform: translate(-50%, -50%); }
-.cap-plus::after { width: 1px; height: 14px; transform: translate(-50%, -50%); }
-.cap.is-open .cap-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
-.cap-marquee { overflow: hidden; width: clamp(140px, 22vw, 320px); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); color: var(--mute); }
-.cap-marquee-track { display: flex; gap: 20px; width: max-content; animation: marquee 14s linear infinite; }
-/* no speed change on hover: retiming a running animation makes it jump; tint it instead */
-.cap-marquee { transition: color 0.4s; }
-.cap.is-open .cap-marquee { color: var(--ink); }
-.cap-marquee-track span::after { content: "✦"; margin-left: 20px; color: var(--accent); font-size: 8px; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-.cap-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.7s var(--ease-out); }
-.cap.is-open .cap-body { grid-template-rows: 1fr; }
-.cap-body > div { overflow: hidden; }
-.cap-body p { padding: 0 0 34px 80px; max-width: 56ch; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
-.caps-foot { display: flex; justify-content: space-between; padding-top: 22px; color: var(--mute); position: relative; }
-.caps-foot .rule { position: absolute; top: 0; left: 0; }
-@media (max-width: 700px) {
-  .cap-head { grid-template-columns: 40px 1fr 20px; }
-  .cap-marquee { display: none; }
-  .cap-body p { padding-left: 60px; }
+/* ---------- capabilities: one paragraph + an exploded ink diagram ---------- */
+.caps { display: grid; grid-template-columns: 0.55fr 0.45fr; gap: clamp(32px, 5vw, 96px); align-items: center; }
+.caps-copy { display: grid; gap: 28px; }
+.caps-text { max-width: 34ch; font-size: clamp(26px, 3vw, 46px); line-height: 1.14; }
+.caps-note { color: var(--mute); }
+.caps-art { position: relative; width: 100%; max-width: 520px; justify-self: end; }
+.caps-canvas { position: relative; aspect-ratio: 1; }
+.caps-art canvas { touch-action: pan-y !important; }
+/* labels are positioned by the scene each frame, on the right edge of their sheet */
+.caps-legend { position: absolute; inset: 0; color: var(--ink); text-align: right; pointer-events: none; }
+.caps-legend li { position: absolute; right: 0; transform: translateY(-50%); opacity: 0; }
+.caps-legend li::before { content: ""; display: inline-block; width: 22px; height: 1px; background: var(--line-strong); vertical-align: middle; margin-right: 10px; }
+@media (max-width: 900px) {
+  .caps { grid-template-columns: 1fr; }
+  .caps-art { justify-self: stretch; max-width: 440px; margin: 0 auto; aspect-ratio: auto; }
+  .caps-canvas { position: relative; aspect-ratio: 1; }
+  /* labels sit under the drawing on small screens instead of over it */
+  .caps-legend { position: static; display: flex; flex-wrap: wrap; gap: 10px 22px; text-align: left; margin-top: 4px; }
+  .caps-legend li { position: static; transform: none !important; opacity: 1 !important; }
+  .caps-legend li::before { display: none; }
 }
 
 /* ---------- remote ---------- */
@@ -501,13 +492,15 @@ ul, ol { list-style: none; }
 .para-below { display: grid; grid-template-columns: 0.55fr 0.45fr; gap: clamp(28px, 5vw, 96px); align-items: start; margin-top: clamp(28px, 5vh, 56px); }
 .para-line { font-size: clamp(30px, 3.6vw, 56px); line-height: 1.05; letter-spacing: -0.015em; }
 .para-line em { font-style: italic; color: var(--accent); }
-.para-copy { display: grid; gap: 22px; }
+.para-copy { display: grid; gap: 26px; }
 .para-copy .lead { max-width: 44ch; }
-.para-sun { display: flex; flex-wrap: wrap; gap: 6px 0; color: var(--mute); }
-.para-sun span + span::before { content: "·"; margin: 0 12px; }
+/* sun facts: a small ledger under the paragraph, same language as the About facts */
+.para-sun { display: grid; max-width: 44ch; }
+.para-sun-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 11px 0; border-top: 1px solid var(--line); }
+.para-sun-row:last-child { border-bottom: 1px solid var(--line); }
+.para-sun-row dt { color: var(--mute); }
+.para-sun-row dd { color: var(--ink); font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) {
   .para-art { aspect-ratio: 4 / 5; }
   .para-below { grid-template-columns: 1fr; }
-  .para-sun { flex-direction: column; }
-  .para-sun span + span::before { display: none; }
 }

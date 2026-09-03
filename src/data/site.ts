@@ -92,51 +92,6 @@ export const reel: ReelItem[] = [
   ...reelExtras,
 ];
 
-export type Capability = {
-  index: string;
-  title: string;
-  stack: string[];
-  description: string;
-};
-
-export const capabilities: Capability[] = [
-  {
-    index: "01",
-    title: "Creative Development",
-    stack: ["WebGL", "GSAP", "React", "Three.js"],
-    description:
-      "Interactive, performance-minded front-ends where motion and 3D are first-class — real-time WebGL scenes, scroll-driven storytelling and component architectures that stay clean as they scale.",
-  },
-  {
-    index: "02",
-    title: "Motion & Interaction",
-    stack: ["Shaders", "Timeline", "Scroll", "Lenis"],
-    description:
-      "Custom shaders, timeline choreography and scroll-linked sequences that make a page feel alive — every transition tuned for rhythm, weight and intent, never decoration for its own sake.",
-  },
-  {
-    index: "03",
-    title: "Art Direction",
-    stack: ["Brand", "Type", "Layout", "Colour"],
-    description:
-      "Setting the visual system — type pairings, colour, grid and tone — so a product reads as one confident voice from the first frame to the last small detail.",
-  },
-  {
-    index: "04",
-    title: "CMS & No-code",
-    stack: ["Webflow", "WordPress", "Headless", "CMS"],
-    description:
-      "Comfortable across the CMS landscape — Webflow, WordPress and headless setups alike. Clean content models, tidy handoff and editor-friendly structures, so teams can ship and update confidently whatever the platform.",
-  },
-  {
-    index: "05",
-    title: "Frontend Engineering",
-    stack: ["HTML", "CSS", "JS", "React", "Next.js"],
-    description:
-      "Semantic, accessible, responsive front-ends on React and Next.js — fast, resilient and pixel-faithful to the design across every breakpoint and device.",
-  },
-];
-
 export type City = { name: string; tz: string; lat: number; lon: number };
 
 export const cities: City[] = [

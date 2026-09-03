@@ -1,86 +1,65 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import dynamic from "next/dynamic";
+import { useRef } from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import SectionMark from "./motion/SectionMark";
-import Rule from "./motion/Rule";
-import { capabilities } from "@/data/site";
+import Reveal from "./motion/Reveal";
+import type { LayersState, LayerLabels } from "./three/Layers";
+
+const Layers = dynamic(() => import("./three/Layers"), { ssr: false });
 
 export default function Capabilities() {
   const root = useRef<HTMLElement>(null);
-  const [open, setOpen] = useState<number>(0);
-  const [canHover, setCanHover] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const sync = () => setCanHover(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const stateRef = useRef<LayersState>({ p: 0 });
+  const labelRefs = useRef<(HTMLElement | null)[]>([]);
 
   useGSAP(
     () => {
-      gsap.utils.toArray<HTMLElement>(".cap-head").forEach((head, i) => {
-        gsap.from(head.children, {
-          y: 22,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.05,
-          delay: i * 0.05,
-          scrollTrigger: { trigger: head, start: "top 90%", once: true },
-        });
+      gsap.from(".caps-note", { y: 18, opacity: 0, duration: 1, scrollTrigger: { trigger: ".caps-note", start: "top 88%", once: true } });
+      // the diagram explodes as the section scrolls through the viewport
+      ScrollTrigger.create({
+        trigger: root.current,
+        start: "top 80%",
+        end: "bottom 45%",
+        scrub: 0.6,
+        onUpdate: (self) => {
+          stateRef.current.p = self.progress;
+        },
       });
+      gsap.from(".caps-art", { opacity: 0, duration: 1.4, scrollTrigger: { trigger: ".caps-art", start: "top 85%", once: true } });
     },
     { scope: root },
   );
 
   return (
-    <section ref={root} className="section container" id="capabilities">
+    <section ref={root} className="section container caps" id="capabilities">
       <SectionMark />
-      <h2 className="h-3 sec-title">What I do, end to end.</h2>
-      <div className="caps-list">
-        {capabilities.map((c, i) => {
-          const isOpen = open === i;
-          return (
-            <div
-              className={`cap ${isOpen ? "is-open" : ""}`}
-              key={c.index}
-              // pointer devices expand on hover; touch keeps click-to-toggle
-              onMouseEnter={canHover ? () => setOpen(i) : undefined}
-            >
-              <Rule delay={i * 0.08} />
-              <button
-                className="cap-head"
-                onClick={() => setOpen(isOpen && !canHover ? -1 : i)}
-                onFocus={() => setOpen(i)}
-                aria-expanded={isOpen}
-                aria-controls={`cap-${c.index}`}
-              >
-                <span className="cap-n mono">{c.index}</span>
-                <h3 className="serif">{c.title}</h3>
-                <span className="cap-marquee mono" aria-hidden="true">
-                  <span className="cap-marquee-track">
-                    {[...c.stack, ...c.stack].map((s, k) => (
-                      <span key={k}>{s}</span>
-                    ))}
-                  </span>
-                </span>
-                <span className="cap-plus" aria-hidden="true" />
-              </button>
-              <div className="cap-body" id={`cap-${c.index}`}>
-                <div>
-                  <p>{c.description}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        <div className="caps-foot mono">
-          <Rule />
-          <span>{canHover ? "Hover a row to expand" : "Tap a row to expand"}</span>
-          <span>Five things, done properly</span>
+      <div className="caps-copy">
+        <Reveal as="p" className="h-3 caps-text" stagger={0.012}>
+          I do the whole thing: design when a project needs it, the build, the motion, and the handover so you can run the
+          site yourself. WordPress or Webflow when you want to edit it, Next.js when it is a product, and whatever front-end
+          framework your team already uses when I am joining one. The choice is about what you will still be maintaining in
+          two years.
+        </Reveal>
+        <p className="caps-note mono">Design · Build · Motion · Handover · React, Vue, Svelte, Astro, plain HTML</p>
+      </div>
+      <div className="caps-art" aria-hidden="true">
+        <div className="caps-canvas">
+          <Layers stateRef={stateRef} labels={labelRefs as LayerLabels} />
         </div>
+        <ul className="caps-legend mono">
+          {["Design", "Build", "Motion", "Handover"].map((name, i) => (
+            <li
+              key={name}
+              ref={(el) => {
+                labelRefs.current[i] = el;
+              }}
+            >
+              {name}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

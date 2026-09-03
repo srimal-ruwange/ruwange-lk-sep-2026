@@ -39,15 +39,21 @@ function SunFacts() {
     }
   }
 
+  const rows = [
+    ["Local time", now ? formatTime(now, site.timeZone, false) : "--:--"],
+    ["Sunrise", sunrise],
+    ["Sunset", sunset],
+    [next.label, next.value],
+  ];
   return (
-    <p className="para-sun mono">
-      <span>{now ? formatTime(now, site.timeZone, false) : "--:--"} in {site.city}</span>
-      <span>Sunrise {sunrise}</span>
-      <span>Sunset {sunset}</span>
-      <span>
-        {next.label} {next.value}
-      </span>
-    </p>
+    <dl className="para-sun mono">
+      {rows.map(([k, v]) => (
+        <div className="para-sun-row" key={k}>
+          <dt>{k}</dt>
+          <dd suppressHydrationWarning>{v}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
