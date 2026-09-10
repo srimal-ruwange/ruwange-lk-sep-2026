@@ -16,23 +16,6 @@
   color-scheme: light;
 }
 
-/* ---------- ink mode (About section in view) ---------- */
-html.is-dark {
-  --paper: #17170f;
-  --paper-2: #23231c;
-  --ink: #f3f1ea;
-  --ink-2: #d6d3c9;
-  --mute: #8f8d83;
-  --line: rgba(243, 241, 234, 0.16);
-  --line-strong: rgba(243, 241, 234, 0.42);
-}
-body, .header, .header::before, .header::after, .rule, .frame-v,
-h1, h2, h3, p, span, a, dt, dd, li, label, input, textarea, button {
-  transition: background-color 0.7s ease, color 0.7s ease;
-}
-html.is-dark .grain { mix-blend-mode: screen; opacity: 0.05; }
-html.is-dark ::selection { background: var(--accent); color: #17170f; }
-
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { height: 100%; scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
@@ -235,6 +218,16 @@ ul, ol { list-style: none; }
   transform: scaleX(0); transform-origin: left; transition: transform 0.8s var(--ease-out);
 }
 .header.is-scrolled::after { transform: scaleX(1); }
+/* the Selected Work panel slides under the header: swap the header to ink while it's there */
+.header, .header::before, .header::after, .header-name, .header-clock, .header-nav a {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+.header::after { transition: transform 0.8s var(--ease-out), background-color 0.35s ease; }
+.header.is-ink {
+  --paper: #17170f; --ink: #f3f1ea; --ink-2: #d6d3c9;
+  --line: rgba(243, 241, 234, 0.16);
+  color: var(--ink);
+}
 .header-name { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.01em; }
 .header-clock { color: var(--ink-2); display: flex; gap: 10px; }
 .header-clock .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; align-self: center; animation: blink 2s infinite; }
@@ -330,14 +323,27 @@ ul, ol { list-style: none; }
 
 /* ---------- work (plate viewer) ---------- */
 .work { position: relative; }
-.work-pin {
-  height: 100svh;
+/* the pinned block is clipped to a small tilted, rounded window until it is pinned (the exact
+   path is written by Work.tsx every frame); the dark card is simply its background */
+.work-pin { height: 100svh; position: relative; overflow: hidden; clip-path: inset(33% 33% round 28px); }
+.work-card { position: absolute; inset: 0; background: #17170f; }
+/* the content sits on top of the card; ink tokens are scoped here, nothing on the page transitions */
+.work-panel {
+  --paper: #17170f;
+  --paper-2: #23231c;
+  --ink: #f3f1ea;
+  --ink-2: #d6d3c9;
+  --mute: #8f8d83;
+  --line: rgba(243, 241, 234, 0.16);
+  --line-strong: rgba(243, 241, 234, 0.42);
+  position: absolute;
+  inset: 0;
+  color: var(--ink);
   display: grid;
   grid-template-columns: 0.42fr 0.58fr;
   gap: clamp(24px, 4vw, 72px);
   padding: 0 var(--gutter);
   align-items: stretch;
-  position: relative;
   overflow: hidden;
 }
 .work-side { display: grid; grid-template-rows: auto 1fr auto; padding: 104px 0 34px; min-width: 0; }
@@ -378,7 +384,7 @@ ul, ol { list-style: none; }
 .work-plate.is-static .work-open { opacity: 0; }
 .work-retired { color: var(--mute); }
 @media (max-width: 900px) {
-  .work-pin { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 12px; }
+  .work-panel { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 12px; }
   .work-side { order: 2; padding: 12px 0 22px; grid-template-rows: auto 1fr auto; }
   .work-head { display: none; }
   .work-slide { gap: 10px; }

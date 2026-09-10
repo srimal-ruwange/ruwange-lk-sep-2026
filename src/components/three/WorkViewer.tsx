@@ -109,7 +109,15 @@ function Plate({ progressRef }: Props) {
     });
   }, [textures, gl]);
 
-  const st = useRef({ mouse: new THREE.Vector2(0.5, 0.5), tm: new THREE.Vector2(0.5, 0.5), hover: 0, th: 0, vel: 0, tilt: 0, p: 0 }).current;
+  const st = useRef({
+    mouse: new THREE.Vector2(0.5, 0.5),
+    tm: new THREE.Vector2(0.5, 0.5),
+    hover: 0,
+    th: 0,
+    vel: 0,
+    tilt: 0,
+    p: 0,
+  }).current;
 
   const mat = useMemo(() => {
     const res = (t: THREE.Texture) => {
@@ -128,7 +136,16 @@ function Plate({ progressRef }: Props) {
         uMix: { value: 0 },
         uDriftA: { value: 0 },
         uDriftB: { value: 0 },
-        uInk: { value: new THREE.Color("#17170f") },
+        // written straight to the framebuffer (no output encoding in a ShaderMaterial), so store
+        // the display value as-is rather than letting colour management convert it to linear
+        uInk: {
+          value: new THREE.Color().setRGB(
+            0x17 / 255,
+            0x17 / 255,
+            0x0f / 255,
+            THREE.LinearSRGBColorSpace,
+          ),
+        },
       },
       vertexShader: VERT,
       fragmentShader: FRAG,
@@ -141,7 +158,10 @@ function Plate({ progressRef }: Props) {
     const el = gl.domElement;
     const move = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
-      st.tm.set((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height);
+      st.tm.set(
+        (e.clientX - r.left) / r.width,
+        1 - (e.clientY - r.top) / r.height,
+      );
     };
     const enter = () => (st.th = 1);
     const leave = () => (st.th = 0);
@@ -169,23 +189,34 @@ function Plate({ progressRef }: Props) {
   useFrame((_, dt) => {
     const d = Math.min(dt, 1 / 30);
     // ease toward the scroll position so wheel steps don't stutter the dissolve
-    const target = THREE.MathUtils.clamp(progressRef.current?.p ?? 0, 0, 0.9999);
+    const target = THREE.MathUtils.clamp(
+      progressRef.current?.p ?? 0,
+      0,
+      0.9999,
+    );
     st.p += (target - st.p) * Math.min(1, d * 7);
     const p = st.p;
     const seg = p * n;
     const i = Math.min(n - 1, Math.floor(seg));
     const local = seg - i;
     const next = Math.min(n - 1, i + 1);
-    const mix = i === n - 1 ? 0 : THREE.MathUtils.smoothstep(local, SWAP_START, 1);
+    const mix =
+      i === n - 1 ? 0 : THREE.MathUtils.smoothstep(local, SWAP_START, 1);
 
     const u = mat.uniforms;
     if (u.uTexA.value !== textures[i]) {
       u.uTexA.value = textures[i];
-      (u.uResA.value as THREE.Vector2).set((textures[i].image as HTMLImageElement).width, (textures[i].image as HTMLImageElement).height);
+      (u.uResA.value as THREE.Vector2).set(
+        (textures[i].image as HTMLImageElement).width,
+        (textures[i].image as HTMLImageElement).height,
+      );
     }
     if (u.uTexB.value !== textures[next]) {
       u.uTexB.value = textures[next];
-      (u.uResB.value as THREE.Vector2).set((textures[next].image as HTMLImageElement).width, (textures[next].image as HTMLImageElement).height);
+      (u.uResB.value as THREE.Vector2).set(
+        (textures[next].image as HTMLImageElement).width,
+        (textures[next].image as HTMLImageElement).height,
+      );
     }
     u.uMix.value = mix;
     u.uDriftA.value = local - 0.5;
