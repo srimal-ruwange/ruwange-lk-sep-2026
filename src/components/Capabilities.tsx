@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import SectionMark from "./motion/SectionMark";
 import Reveal from "./motion/Reveal";
 import type { LayersState, LayerLabels } from "./three/Layers";
 
@@ -34,7 +33,6 @@ export default function Capabilities() {
 
   return (
     <section ref={root} className="section container caps" id="capabilities">
-      <SectionMark />
       <div className="caps-copy">
         <Reveal as="p" className="h-3 caps-text" stagger={0.012}>
           I do the whole thing: design when a project needs it, the build, the motion, and the handover so you can run the
