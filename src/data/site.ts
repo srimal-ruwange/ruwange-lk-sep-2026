@@ -36,14 +36,14 @@ export const projects: Project[] = [
     image: "/images/work-future-state.webp",
   },
   {
-    id: "dreamstart-labs",
+    id: "conexa-labs",
     index: "02",
-    title: "DreamStart Labs",
-    url: "https://dreamstartlabs.com",
-    tags: ["WebGL", "GSAP", "WordPress"],
+    title: "Conexa Labs",
+    url: "https://conexalabs.ca",
+    tags: ["Next.js", "GSAP", "Three.js"],
     description:
-      "They digitise informal savings groups in places most software ignores. The brief was warmth first, technology second. WordPress so their team can publish from anywhere, a small WebGL globe for the countries they work in, and impact numbers that count up as you reach them.",
-    image: "/images/work-dreamstart.webp",
+      "A mobile product studio in Toronto whose first app is a roommate finder. The idea for the site was an exploded phone that assembles as you scroll, so that is what it is: the layers in Three.js, the scroll choreography in GSAP, Next.js underneath. Everything else on the page stays out of its way.",
+    image: "/images/work-conexa.jpg",
   },
   {
     id: "asaya-sands",
@@ -81,6 +81,7 @@ export const projects: Project[] = [
 export type ReelItem = { id: string; title: string; url: string; image: string };
 
 export const reelExtras: ReelItem[] = [
+  { id: "dreamstart-labs", title: "DreamStart Labs", url: "https://dreamstartlabs.com", image: "/images/work-dreamstart.webp" },
   { id: "trail", title: "Trail — Walk · Unite · Heal", url: "https://www.trailsl.com/", image: "/images/reel-trailsl.jpg" },
   { id: "calcey", title: "Calcey", url: "https://calcey.com/", image: "/images/reel-calcey.jpg" },
   { id: "old-portfolio", title: "Old Portfolio", url: "", image: "/images/work-portfolio.jpg" },
