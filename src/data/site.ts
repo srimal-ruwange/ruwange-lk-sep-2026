@@ -26,14 +26,14 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "future-state",
+    id: "battles-of-lanka",
     index: "01",
-    title: "Future State",
-    url: "https://futurestatedigital.com",
-    tags: ["Branding", "WebGL", "GSAP", "Next.js"],
+    title: "Battles of Lanka",
+    url: "https://battlesoflanka.games",
+    tags: ["Three.js", "Game", "JavaScript", "AI art"],
     description:
-      "A consultancy run by its founders, so the site had to sound like them: direct, technical, a little ambitious. I did the brand as well as the build. The particle trail in the hero is the thing people ask about; the scroll story underneath it is the thing that does the selling.",
-    image: "/images/work-future-state.webp",
+      "A free browser game where you fight Sri Lanka's 16th-century battles against the Portuguese. It grew out of my history channel, Serendib Lore, into a small MOBA with heroes, talents and a war elephant you can ride. Three.js, a hand-written engine, and AI art directed by me.",
+    image: "/images/work-battles-of-lanka.jpg",
   },
   {
     id: "conexa-labs",
@@ -81,6 +81,7 @@ export const projects: Project[] = [
 export type ReelItem = { id: string; title: string; url: string; image: string };
 
 export const reelExtras: ReelItem[] = [
+  { id: "future-state", title: "Future State", url: "https://futurestatedigital.com", image: "/images/work-future-state.webp" },
   { id: "dreamstart-labs", title: "DreamStart Labs", url: "https://dreamstartlabs.com", image: "/images/work-dreamstart.webp" },
   { id: "trail", title: "Trail — Walk · Unite · Heal", url: "https://www.trailsl.com/", image: "/images/reel-trailsl.jpg" },
   { id: "calcey", title: "Calcey", url: "https://calcey.com/", image: "/images/reel-calcey.jpg" },
